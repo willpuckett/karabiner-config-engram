@@ -3,6 +3,7 @@ import {
   map,
   rule,
   simlayer,
+  // toKey,
   withMapper,
   withModifier,
   writeToProfile,
@@ -28,6 +29,8 @@ writeToProfile('karabiner.ts', [
     ]),
   ]),
   simlayer('f', '<⇧').manipulators([
+    // Reminder to experiment with .toDelayedAction() method
+    // map('<⌘').toIfAlone('⌫').to('<⌘').toDelayedAction(toKey('m'), toKey('t')),
     // withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, "⌘⇧").condition(ifVar("<⌘", 1))),
     // withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, "⇧⌥").condition(ifVar("<⌥", 1))),
     // withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, "⌃⇧").condition(ifVar("<⌃", 1))),
