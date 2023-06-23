@@ -1,67 +1,67 @@
 import {
+  FromKeyParam,
+  ifVar,
   layer,
+  LayerKeyParam,
   map,
+  ModifierParam,
   rule,
   simlayer,
-  // toKey,
+  ToKeyParam,
   withMapper,
   withModifier,
   writeToProfile,
 } from 'karabinerts'
 import { engram, engram_left, engram_right } from './engram.ts'
 
-// writeToProfile("--dry-run", [
+
+const qhr: FromKeyParam[] = ['a', 's', 'd', 'f', 'j', 'k', 'l', ';']
+const mods = ['⌃', '⌥', '⌘', '⇧']
+
+const combinations = (array: string[]) => array.flatMap(
+    (v, i) => array.slice(i+1).map( w => v  + w )
+);
+const conc = (j: ModifierParam, k: ModifierParam | undefined) =>
+  k ? `${j as string}${k as string}` as ModifierParam : j
+
+// writeToProfile("--dry-run",
 writeToProfile('karabiner.ts', [
   layer('⇪', 'nav').manipulators([
     withModifier('optionalAny')([
-      map('u').to('↖︎'),
-      map('i').to('⇟'),
-      map('o').to('⇞'),
-      map('p').to('↘︎'),
-      map('j').to('←'),
-      map('k').to('↓'),
-      map('l').to('↑'),
-      map(';').to('→'),
-      map('m').to('z', '<⌘'),
-      map(',').to('x', '<⌘'),
-      map('.').to('c', '<⌘'),
-      map('/').to('v', '<⌘'),
+      withMapper({
+        'u': '↖︎',
+        'i': '⇟',
+        'o': '⇞',
+        'p': '↘︎',
+        'j': '←',
+        'k': '↓',
+        'l': '↑',
+        ';': '→',
+      })((k, v) => map(k).to(v as ToKeyParam)),
+      withMapper({ 'm': 'z', ',': 'x', '.': 'c', '/': 'v' })((k, v) =>
+        map(k).to(v as ToKeyParam, '<⌘')
+        ),
+      ]),
     ]),
-  ]),
-  simlayer('f', '<⇧').manipulators([
-    // Reminder to experiment with .toDelayedAction() method
-    // map('<⌘').toIfAlone('⌫').to('<⌘').toDelayedAction(toKey('m'), toKey('t')),
-    // withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, "⌘⇧").condition(ifVar("<⌘", 1))),
-    // withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, "⇧⌥").condition(ifVar("<⌥", 1))),
-    // withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, "⌃⇧").condition(ifVar("<⌃", 1))),
-    withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, '⇧')),
-  ]),
-  simlayer('j', '>⇧').manipulators([
-    // withMapper(engram_left)((k) => map(k.from, k.fromMod).to(k.to, "⌘⇧").condition(ifVar(">⌘", 1))),
-    // withMapper(engram_left)((k) => map(k.from, k.fromMod).to(k.to, "⇧⌥").condition(ifVar(">⌥", 1))),
-    // withMapper(engram_left)((k) => map(k.from, k.fromMod).to(k.to, "⌃⇧").condition(ifVar(">⌃", 1))),
-    withMapper(engram_left)((k) => map(k.from, k.fromMod).to(k.to, '⇧')),
-  ]),
-  simlayer('d', '<⌘').manipulators([
-    // withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, "⌘⌥").condition(ifVar("<⌥", 1))),
-    withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, '⌘')),
-  ]),
-  simlayer('k', '>⌘').manipulators([
-    // withMapper(engram_left)((k) => map(k.from, k.fromMod).to(k.to, "⌘⌥").condition(ifVar(">⌥", 1))),
-    withMapper(engram_left)((k) => map(k.from, k.fromMod).to(k.to, '⌘')),
-  ]),
-  simlayer('s', '<⌥').manipulators([
-    withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, '⌥')),
-  ]),
-  simlayer('l', '>⌥').manipulators([
-    withMapper(engram_left)((k) => map(k.from, k.fromMod).to(k.to, '⌥')),
-  ]),
-  simlayer('a', '<⌃').manipulators([
-    withMapper(engram_right)((k) => map(k.from, k.fromMod).to(k.to, '⌃')),
-  ]),
-  simlayer(';', '>⌃').manipulators([
-    withMapper(engram_left)((k) => map(k.from, k.fromMod).to(k.to, '⌃')),
-  ]),
+// simlayer('d', 'combi1').condition(ifVar('⇧', 1)).manipulators([
+//   withMapper(engram_right)((k) =>
+//         map(k.from, k.fromMod).to(
+//           k.to,
+//           conc('⌘⇧' as ModifierParam, k.toMod),
+//         )
+//       ),
+// ]),
+
+  ...(qhr.map((key, i) =>
+  simlayer(key as LayerKeyParam, i < 4 ? '<' : '>' + mods[i < 4 ? i : 7 - i]).manipulators([
+      withMapper(i < 4 ? engram_right : engram_left)((k) =>
+        map(k.from, k.fromMod).to(
+          k.to,
+          conc(mods[i < 4 ? i : 7 - i ] as ModifierParam, k.toMod),
+        )
+      ),
+    ])
+  )),
 
   rule('short pinkies').manipulators([
     withModifier('optionalAny')([
@@ -79,7 +79,7 @@ writeToProfile('karabiner.ts', [
   ]),
 ], {
   'simlayer.threshold_milliseconds': 300,
-  'basic.to_delayed_action_delay_milliseconds': 251,
-  'basic.to_if_alone_timeout_milliseconds': 250,
-  'basic.to_if_held_down_threshold_milliseconds': 251,
+  // 'basic.to_delayed_action_delay_milliseconds': 151,
+  // 'basic.to_if_alone_timeout_milliseconds': 150,
+  // 'basic.to_if_held_down_threshold_milliseconds': 151,
 })
