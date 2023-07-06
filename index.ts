@@ -14,13 +14,13 @@ import {
 } from 'karabinerts'
 import { engram, engram_left, engram_right } from './engram.ts'
 
-
 const qhr: FromKeyParam[] = ['a', 's', 'd', 'f', 'j', 'k', 'l', ';']
 const mods = ['⌃', '⌥', '⌘', '⇧']
 
-const combinations = (array: string[]) => array.flatMap(
-    (v, i) => array.slice(i+1).map( w => v  + w )
-);
+const combinations = (array: string[]) =>
+  array.flatMap(
+    (v, i) => array.slice(i + 1).map((w) => v + w),
+  )
 const conc = (j: ModifierParam, k: ModifierParam | undefined) =>
   k ? `${j as string}${k as string}` as ModifierParam : j
 
@@ -40,27 +40,26 @@ writeToProfile('karabiner.ts', [
       })((k, v) => map(k).to(v as ToKeyParam)),
       withMapper({ 'm': 'z', ',': 'x', '.': 'c', '/': 'v' })((k, v) =>
         map(k).to(v as ToKeyParam, '<⌘')
-        ),
-      ]),
+      ),
     ]),
-// simlayer('d', 'combi1').condition(ifVar('⇧', 1)).manipulators([
-//   withMapper(engram_right)((k) =>
-//         map(k.from, k.fromMod).to(
-//           k.to,
-//           conc('⌘⇧' as ModifierParam, k.toMod),
-//         )
-//       ),
-// ]),
+  ]),
+  simlayer('d', 'combi1').condition(ifVar('<⇧', 1), ifVar('<⌘', 1))
+    .manipulators([
+      withMapper(engram_right)((k) =>
+        map(k.from, k.fromMod).to(k.to, '⌘⇧')
+      ),
+    ]),
 
   ...(qhr.map((key, i) =>
-  simlayer(key as LayerKeyParam, i < 4 ? '<' : '>' + mods[i < 4 ? i : 7 - i]).manipulators([
-      withMapper(i < 4 ? engram_right : engram_left)((k) =>
-        map(k.from, k.fromMod).to(
-          k.to,
-          conc(mods[i < 4 ? i : 7 - i ] as ModifierParam, k.toMod),
-        )
-      ),
-    ])
+    simlayer(key as LayerKeyParam, i < 4 ? '<' : '>' + mods[i < 4 ? i : 7 - i])
+      .manipulators([
+        withMapper(i < 4 ? engram_right : engram_left)((k) =>
+          map(k.from, k.fromMod).to(
+            k.to,
+            conc(mods[i < 4 ? i : 7 - i] as ModifierParam, k.toMod),
+          )
+        ),
+      ])
   )),
 
   rule('short pinkies').manipulators([
