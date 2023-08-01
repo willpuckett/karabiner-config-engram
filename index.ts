@@ -17,7 +17,7 @@ const qhr: FromKeyParam[] = ['a', 's', 'd', 'f', 'j', 'k', 'l', ';']
 
 writeToProfile('karabiner.ts', [
   ...(qhr.map((key, i) => {
-    const mod = (i < 4 ? '<' : '>') + ['⌃', '⌥', '⌘', '⇧'][i < 4 ? i : 7 - i]
+    const mod = ['<⌃', '<⌥', '<⌘', '<⇧', '>⇧', '>⌘', '>⌥', '>⌃'][i]
     return simlayer(key as LayerKeyParam, mod)
       .manipulators([
         withMapper(i < 4 ? engram_right : engram_left)((k) =>
@@ -41,15 +41,16 @@ writeToProfile('karabiner.ts', [
       withMapper({ 'm': 'z', ',': 'x', '.': 'c', '/': 'v' })((k, v) =>
         map(k).to(v as ToKeyParam, '<⌘')
       ),
+      map('n').to('z', '<⌘⇧'),
     ]),
   ]),
 
-  rule('short pinkies').manipulators([
-    withModifier('optionalAny')([
-      map('<⌘').toIfAlone('⌫').to('<⌘'),
-      map('>⌘').toIfAlone('⏎').to('>⌘'),
-    ]),
-  ]),
+  // rule('short pinkies').manipulators([
+  //   withModifier('optionalAny')([
+  //     map('<⌘').toIfAlone('⌫').to('<⌘'),
+  //     map('>⌘').toIfAlone('⏎').to('>⌘'),
+  //   ])
+  // ]),
 
   rule('engram').manipulators([
     withModifier('optionalAny')([
@@ -57,8 +58,11 @@ writeToProfile('karabiner.ts', [
     ]),
   ]),
 ], {
-  'simlayer.threshold_milliseconds': 400,
+  'simlayer.threshold_milliseconds': 500,
   // 'basic.to_delayed_action_delay_milliseconds': 151,
   // 'basic.to_if_alone_timeout_milliseconds': 150,
   // 'basic.to_if_held_down_threshold_milliseconds': 151,
 })
+
+
+

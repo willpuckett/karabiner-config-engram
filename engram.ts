@@ -74,6 +74,11 @@ const right: IEngram[] = [
   { from: ',', to: 'm' },
   { from: '.', to: 'f' },
   { from: '/', to: 'p' },
+  // Arrows
+  { from: '↑', to: '↑' },
+  { from: '↓', to: '↓' },
+  { from: '←', to: '←' },
+  { from: '→', to: '→' },
 ]
 
 export const engram = [
