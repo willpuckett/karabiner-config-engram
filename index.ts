@@ -1,6 +1,5 @@
 import {
   FromKeyParam,
-  ifVar,
   layer,
   LayerKeyParam,
   map,
@@ -15,17 +14,18 @@ import {
 import { engram, engram_left, engram_right } from './engram.ts'
 
 const qhr: FromKeyParam[] = ['a', 's', 'd', 'f', 'j', 'k', 'l', ';']
-const mods = ['⌃', '⌥', '⌘', '⇧']
 
-const combinations = (array: string[]) =>
-  array.flatMap(
-    (v, i) => array.slice(i + 1).map((w) => v + w),
-  )
-const conc = (j: ModifierParam, k: ModifierParam | undefined) =>
-  k ? `${j as string}${k as string}` as ModifierParam : j
-
-// writeToProfile("--dry-run",
 writeToProfile('karabiner.ts', [
+  ...(qhr.map((key, i) => {
+    const mod = (i < 4 ? '<' : '>') + ['⌃', '⌥', '⌘', '⇧'][i < 4 ? i : 7 - i]
+    return simlayer(key as LayerKeyParam, mod)
+      .manipulators([
+        withMapper(i < 4 ? engram_right : engram_left)((k) =>
+          map(k.from).to(k.to, mod as ModifierParam)
+        ),
+      ])
+  })),
+
   layer('⇪', 'nav').manipulators([
     withModifier('optionalAny')([
       withMapper({
@@ -43,41 +43,21 @@ writeToProfile('karabiner.ts', [
       ),
     ]),
   ]),
-  simlayer('d', 'combi1').condition(ifVar('<⇧', 1), ifVar('<⌘', 1))
-    .manipulators([
-      withMapper(engram_right)((k) =>
-        map(k.from, k.fromMod).to(k.to, '⌘⇧')
-      ),
-    ]),
-
-  ...(qhr.map((key, i) =>
-    simlayer(key as LayerKeyParam, i < 4 ? '<' : '>' + mods[i < 4 ? i : 7 - i])
-      .manipulators([
-        withMapper(i < 4 ? engram_right : engram_left)((k) =>
-          map(k.from, k.fromMod).to(
-            k.to,
-            conc(mods[i < 4 ? i : 7 - i] as ModifierParam, k.toMod),
-          )
-        ),
-      ])
-  )),
 
   rule('short pinkies').manipulators([
     withModifier('optionalAny')([
       map('<⌘').toIfAlone('⌫').to('<⌘'),
-      map('>⌘').toIfAlone('⏎').to('<⌘'),
-      map('=').to('⌫'),
-      map('>⇧', '<⇧').to('\\'),
-      map('>⇧').to('/'),
+      map('>⌘').toIfAlone('⏎').to('>⌘'),
     ]),
   ]),
+
   rule('engram').manipulators([
     withModifier('optionalAny')([
-      withMapper(engram)((k) => map(k.from, k.fromMod).to(k.to, k.toMod)),
+      withMapper(engram)((k) => map(k.from).to(k.to)),
     ]),
   ]),
 ], {
-  'simlayer.threshold_milliseconds': 300,
+  'simlayer.threshold_milliseconds': 400,
   // 'basic.to_delayed_action_delay_milliseconds': 151,
   // 'basic.to_if_alone_timeout_milliseconds': 150,
   // 'basic.to_if_held_down_threshold_milliseconds': 151,

@@ -17,17 +17,17 @@ const thumbs: IEngram[] = [
 const left: IEngram[] = [
   // Number Row
   { from: '`', to: '[' },
-  { from: 1, fromMod: '⇧', to: '\\', toMod: '⇧' },
-  { from: 2, fromMod: '⇧', to: '=' },
-  { from: 3, fromMod: '⇧', to: '`', toMod: '⇧' },
-  { from: 4, fromMod: '⇧', to: '=', toMod: '⇧' },
-  { from: 5, fromMod: '⇧', to: ',', toMod: '⇧' },
+  { from: 1, to: '1' },
+  { from: 2, to: '2' },
+  { from: 3, to: '3' },
+  { from: 4, to: '4' },
+  { from: 5, to: '5' },
   // Center Column/Punctuation
-  { from: 't', fromMod: '⇧', to: '9', toMod: '⇧' },
-  { from: 't', to: 'quote' },
-  { from: 'g', fromMod: '⇧', to: ';' },
-  { from: 'g', to: 'comma' },
+  { from: 't', to: '\'' },
+  { from: 'g', to: ',' },
   { from: 'b', to: '-' },
+  // { from: '‹⇧', to: '[' },
+
   // Letters
   { from: 'q', to: 'b' },
   { from: 'w', to: 'y' },
@@ -45,27 +45,20 @@ const left: IEngram[] = [
 
 const right: IEngram[] = [
   // Number Row
-  { from: 6, fromMod: '⇧', to: '.', toMod: '⇧' },
-  { from: 7, fromMod: '⇧', to: '6', toMod: '⇧' },
-  { from: 8, fromMod: '⇧', to: '7', toMod: '⇧' },
-  { from: 9, fromMod: '⇧', to: '5', toMod: '⇧' },
-  { from: 0, fromMod: '⇧', to: '8', toMod: '⇧' },
+  { from: 6, to: '6' },
+  { from: 7, to: '7' },
+  { from: 8, to: '8' },
+  { from: 9, to: '9' },
+  { from: 0, to: '0' },
   { from: '-', to: ']' },
-  { from: '=', fromMod: '⇧', to: '\\' },
-  { from: '=', to: '/' },
+  { from: '=', to: '\\' },
   // Center Column/Punctuation
-  { from: 'y', fromMod: '⇧', to: '0', toMod: '⇧' },
-  { from: 'y', to: '\'', toMod: '⇧' },
-  { from: 'h', fromMod: '⇧', to: ';', toMod: '⇧' },
+  { from: 'y', to: ';' },
   { from: 'h', to: '.' },
-  { from: 'n', fromMod: '⇧', to: '1', toMod: '⇧' },
-  { from: 'n', to: '/', toMod: '⇧' },
-  { from: ']', fromMod: '⇧', to: '4', toMod: '⇧' },
-  { from: ']', to: '3', toMod: '⇧' },
-  { from: '\\', fromMod: '⇧', to: '`' },
-  { from: '\\', to: '2', toMod: '⇧' },
-  { from: '>⇧', fromMod: '⇧', to: '\\' },
-  { from: '>⇧', to: '/' },
+  { from: 'n', to: '/' },
+  { from: ']', to: '=' },
+  { from: '\\', to: '`' },
+  // { from: '>⇧', to: ']' },
   // Letters
   { from: 'u', to: 'l' },
   { from: 'i', to: 'd' },
@@ -86,6 +79,7 @@ const right: IEngram[] = [
 export const engram = [
   ...left,
   ...right,
+  ...thumbs,
 ]
 
 export const engram_left = [...left, ...thumbs]
