@@ -1,18 +1,21 @@
 import {
   FromKeyParam,
   layer,
+  // ifVar,
   LayerKeyParam,
   map,
   ModifierParam,
   rule,
   simlayer,
   ToKeyParam,
+  // withCondition,
   withMapper,
   withModifier,
   writeToProfile,
 } from 'karabinerts'
 import { engram, engram_left, engram_right } from './engram.ts'
 
+// ⌘⌥⌃⇧ 
 const qhr: FromKeyParam[] = ['a', 's', 'd', 'f', 'j', 'k', 'l', ';']
 const mods = ['<⌃', '<⌥', '<⌘', '<⇧', '>⇧', '>⌘', '>⌥', '>⌃']
 
@@ -47,7 +50,6 @@ writeToProfile('karabiner.ts', [
       map('n').to('z', '<⌘⇧'),
     ]),
   ]),
-
   // Engram base layer
   rule('engram').manipulators([
     withModifier('optionalAny')([
