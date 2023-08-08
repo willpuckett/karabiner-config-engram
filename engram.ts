@@ -16,7 +16,7 @@ const thumbs: IEngram[] = [
 
 const left: IEngram[] = [
   // Number Row
-  { from: '`', to: '[' },
+  { from: '`', to: '`' },
   { from: 1, to: '1' },
   { from: 2, to: '2' },
   { from: 3, to: '3' },
@@ -53,8 +53,8 @@ const right: IEngram[] = [
   { from: 8, to: '8' },
   { from: 9, to: '9' },
   { from: 0, to: '0' },
-  { from: '-', to: ']' },
-  { from: '=', to: '\\' },
+  { from: '-', to: '[' },
+  { from: '=', to: ']' },
   // Center Column/Punctuation
     { from: 't', to: '\'' },
   { from: 'g', to: ',' },
@@ -63,7 +63,7 @@ const right: IEngram[] = [
   { from: 'h', to: '.' },
   { from: 'n', to: '/' },
   { from: ']', to: '=' },
-  { from: '\\', to: '`' },
+  { from: '\\', to: '\\' },
   // { from: '>⇧', to: ']' },
   // Letters
   { from: 'u', to: 'l' },

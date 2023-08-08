@@ -10,6 +10,20 @@ Engram layout for Karabiner.
          ⌫              ␣           ⏎
 ```
 
+Engrammer layout for Karabiner
+
+```ts
+ `~ 1! 2@ 3# 4$  5%  6^  7& 8* 9( 0) [{ ]}
+    bB yY oO uU  '"  ;:  lL dD wW vV zZ =+ \|
+    cC iI eE aA  ,<  .>  hH tT sS nN qQ
+    gG xX jJ kK  -_  /?  rR mM fF pP
+         ⌫              ␣           ⏎
+```
+
+When this repo began, I was using the vanilla Engram layout. As I progressed, I realized that typing JavaScript in particular was very uncomfortable. Reaching up to the angle brackets (<>) was very uncomfortable. I was also not enjoying having parethesis on the center column, despite it seeming nice when I thought about it--I couldn't get a roll out of them and I often type them together for arrow functions. () => {}
+
+While there are always compromises, I ultimately found the Engrammer variant to be much more natural for punctuation. It also had the benefits of the symbols being of the right keys on my laptop keyboard, and being simpler to configure in Karabiner. 
+
 Project includes [Karabiner.ts](https://github.com/evan-liu/karabiner.ts)
 config, as well as a [Goku](https://github.com/yqrashawn/GokuRakuJoudo) config.
 
