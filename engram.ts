@@ -26,6 +26,9 @@ const left: IEngram[] = [
   { from: 't', to: '\'' },
   { from: 'g', to: ',' },
   { from: 'b', to: '-' },
+    { from: 'y', to: ';' },
+  { from: 'h', to: '.' },
+  { from: 'n', to: '/' },
   // { from: '‹⇧', to: '[' },
 
   // Letters
@@ -53,6 +56,9 @@ const right: IEngram[] = [
   { from: '-', to: ']' },
   { from: '=', to: '\\' },
   // Center Column/Punctuation
+    { from: 't', to: '\'' },
+  { from: 'g', to: ',' },
+  { from: 'b', to: '-' },
   { from: 'y', to: ';' },
   { from: 'h', to: '.' },
   { from: 'n', to: '/' },
@@ -82,7 +88,7 @@ const right: IEngram[] = [
 ]
 
 export const engram = [
-  ...left,
+  ...left.filter((l) => !right.some((r) => r.from === l.from)),
   ...right,
   ...thumbs,
 ]
