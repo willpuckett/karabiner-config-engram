@@ -26,7 +26,7 @@ const left: IEngram[] = [
   { from: 't', to: '\'' },
   { from: 'g', to: ',' },
   { from: 'b', to: '-' },
-    { from: 'y', to: ';' },
+  { from: 'y', to: ';' },
   { from: 'h', to: '.' },
   { from: 'n', to: '/' },
   // { from: '‹⇧', to: '[' },
@@ -56,7 +56,7 @@ const right: IEngram[] = [
   { from: '-', to: '[' },
   { from: '=', to: ']' },
   // Center Column/Punctuation
-    { from: 't', to: '\'' },
+  { from: 't', to: '\'' },
   { from: 'g', to: ',' },
   { from: 'b', to: '-' },
   { from: 'y', to: ';' },
