@@ -46,7 +46,7 @@ hrml: home_row_mod_left {
 
 1. Clone this repo.
 2. Create a profile in Karabiner called 'karabiner.ts'.
-3. Run `deno task build` in the repo directory.
+3. Run `deno task sim` in the repo directory to use the Engram layout (Engrammer punctuation placement) with simlayers. This allows only one home row mod to be used at once, though they may still be paired with traditional mods. Run `deno task full` to create a layout that allows full combinations of all home row meds.
 
 ### Goku
 

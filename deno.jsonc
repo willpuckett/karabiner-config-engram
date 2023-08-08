@@ -1,12 +1,14 @@
 {
   "tasks": {
-    "build": "deno run -A index.ts"
+    "sim": "deno run --allow-env=HOME --allow-write --allow-read index.ts",
+    "full": "deno run --allow-env=HOME --allow-write --allow-read index.ts ---full"
   },
   "fmt": {
     "semiColons": false,
     "singleQuote": true
   },
   "imports": {
-    "karabinerts": "https://deno.land/x/karabinerts/deno.ts"
+    "karabinerts": "https://deno.land/x/karabinerts@1.23.0/deno.ts",
+    "$std/": "https://deno.land/std@0.197.0/"
   }
 }
