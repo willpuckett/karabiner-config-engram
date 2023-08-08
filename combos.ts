@@ -12,7 +12,7 @@ import {
   withModifier,
   writeToProfile,
 } from 'karabinerts'
-import { engram, engram_right } from './engram.ts'
+import { engram, engram_left, engram_right } from './engram.ts'
 
 const qhr: FromKeyParam[] = ['a', 's', 'd', 'f', 'j', 'k', 'l', ';']
 const ehr: ToKeyCode[] = ['c', 'i', 'e', 'a', 'h', 't', 's', 'n']
@@ -20,8 +20,11 @@ const mods = ['‹⌃', '‹⌥', '‹⌘', '‹⇧', '›⇧', '›⌘', '›�
 
 // toggle modifier bits and sort to correct order ‹⌘⌥⌃⇧
 const mod = (n: number) =>
+// to binary string
   n.toString(2)
+  // pad to 4 bits
     .padStart(4, '0')
+
     .split('')
     .map((v, i) => +v ? mods[i].split('')[1] : '')
     .sort((a, b) => {
@@ -51,10 +54,15 @@ export const combos = () => writeToProfile('karabiner.ts', [
     ...[...Array(16).keys()].map((i) => {
       const t = i.toString(2).padStart(4, '0').split('').map((v) => +v)
       const l_mod = mod(i)
-      return withCondition(
-        ...[...Array(4).keys()].map((c) => ifVar(mods[c], t[c])),
+      const r_mod = mod(i >> 4)
+      console.log(t, l_mod, r_mod)
+      return withCondition(...[...Array(4).keys()].map((c) => ifVar(mods[c], t[c])),
       )([
         withMapper(engram_right)((k) => map(k.from).to(k.to, l_mod)),
+      ]),
+      withCondition(...[...Array(4).keys()].map((c) => ifVar(mods[c], t[c])),
+      )([
+        withMapper(engram_left)((k) => map(k.from).to(k.to, r_mod)),
       ])
     }),
   ]),

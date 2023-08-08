@@ -1,7 +1,7 @@
 {
   "tasks": {
     "sim": "deno run --allow-env=HOME --allow-write --allow-read index.ts",
-    "full": "deno run --allow-env=HOME --allow-write --allow-read index.ts ---full"
+    "full": "deno run --allow-env=HOME --allow-write --allow-read index.ts --full"
   },
   "fmt": {
     "semiColons": false,
