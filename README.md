@@ -1,3 +1,7 @@
+Archived 2/1/2024 
+It is preferrable to use kmonad.
+
+
 # Engram Config for Karabiner
 
 (Vanilla) Engram layout.
